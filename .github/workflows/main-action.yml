@@ -1,0 +1,26 @@
+
+#nombre de configuración
+name: API mongo-express
+
+# accion que detonan los jobs CI
+on: [push]
+
+# las tareas que se van a ejecutar
+jobs:
+
+  # Compilar nuestro proyecto  
+  build:
+
+    # Define sobre que SO se va a compilar
+    runs-on: ubuntu-latest
+
+    steps:
+      - run: echo "🐧 This job is now running on a ${{ runner.os }} server hosted by GitHub!"
+      - uses: actions/checkout@v3 # version de github actions que vamos a usar
+      - name: Build Docker image  # nombre del proceso 
+      - run: docker build .  --file Dockerfile --tag api-v1
+      - run: echo "🖥️ The workflow is now ready to test your code on the runner."
+
+
+  # Instrucciones para ejecutar los test
+  # test:
