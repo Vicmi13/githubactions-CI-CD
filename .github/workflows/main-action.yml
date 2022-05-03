@@ -3,7 +3,7 @@
 name: API mongo-express
 
 # accion que detonan los jobs CI
-on: [push]
+on: [push, pull_request]
 
 # las tareas que se van a ejecutar
 jobs:
@@ -21,7 +21,25 @@ jobs:
         uses: actions/checkout@v3 # version de github actions que vamos a usar
       - run: docker build .  --file Dockerfile --tag api-v1
      
-
-
   # Instrucciones para ejecutar los test
-  # test:
+  test:
+    
+    # Define sobre que SO se va a compilar
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+      - name: backend tests
+        uses: actions/setup-node@v3
+          with:
+            node-version: '12.x'
+            
+      # Similiar a npm install
+      - run: npm ci 
+      - run: npm test 
+
+
+
+
+
+
