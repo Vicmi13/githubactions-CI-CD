@@ -6,7 +6,7 @@ module.exports = {
       // const allItem = await Item.find();
       const allActiveItems = await Item.find({ is_active: true });
       if (!allActiveItems.length)
-        return res.json({ message: "No items found" });
+        return res.json({ message: "No items found ..." });
       return res
         .status(200)
         .json({ message: "All Items ", items: allActiveItems });
