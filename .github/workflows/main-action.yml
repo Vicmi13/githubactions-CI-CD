@@ -25,13 +25,14 @@ jobs:
     # 3 - Heroku tiene que jalar de registry la imagen para hacer el release
 
     steps:
-      - uses: actions/checkout@v3 # version de github actions que vamos a usar
-      
+      - run: echo "🐧 This job is now running on a ${{ runner.os }}  server hosted by GitHub!"
+      - run: echo "🖥️ The workflow is now ready to test your code on the runner."
       - name: 1 Login to heroku registry   
+      - uses: actions/checkout@v3 # version de github actions que vamos a usar
         env:
           HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY}}
         - id: step1
-        run: heroku container:login
+      - run: heroku container:login
 
       # - run: 
       # - run:
@@ -46,7 +47,7 @@ jobs:
 
       - name: 3 Release
       - id: step3
-        run: heroku container:release -a ${{ secrets.HEROKU_APP_NAME }} web
+      - run: heroku container:release -a ${{ secrets.HEROKU_APP_NAME }} web
 
       
      
