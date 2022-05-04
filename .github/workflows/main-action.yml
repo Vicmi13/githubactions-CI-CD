@@ -3,7 +3,12 @@
 name: API mongo-express
 
 # accion que detonan los jobs CI
-on: [push, pull_request]
+on:
+  push:
+    branches:
+      - main
+      
+    
 
 # las tareas que se van a ejecutar
 jobs:
