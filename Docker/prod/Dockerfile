@@ -2,7 +2,7 @@ FROM node:12-slim
 
 WORKDIR /usr/src/app
  
-COPY /package.json /package-lock.json .
+COPY package.json package-lock.json ./
 
 # instalar las librerias necesarias para que corra el proyecto
 RUN npm ci && npm cache clean --force
