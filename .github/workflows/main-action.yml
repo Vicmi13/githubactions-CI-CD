@@ -27,10 +27,11 @@ jobs:
     steps:
       - run: echo "🐧 This job is now running on a ${{ runner.os }}  server hosted by GitHub!"
       - run: echo "🖥️ The workflow is now ready to test your code on the runner."
-        uses: actions/checkout@v3 # version de github actions que vamos a usar
       - name: Login to heroku   
+        uses: actions/checkout@v3 # version de github actions que vamos a usar
         env:
           HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY}}
+        # - id: step1
       - run: heroku container:login
 
       # - run: 
@@ -38,12 +39,14 @@ jobs:
         # SE SUSTITUYE POR EL PIPE
 
       # - name: Build and push image    
+      # - id: step 2 
       - run: |
               docker build . --tag api-v2 -f Docker/prod/Dockerfile
               docker tag api-mongo-v2 registry.heroku.com/${{ secrets.HEROKU_APP_NAME}}/web
               docker push registry.heroku.com/{{ secrets.HEROKU_APP_NAME}}/web
 
       # - name: Release
+      # - id: step3
       - run: heroku container:release -a ${{ secrets.HEROKU_APP_NAME }} web
 
       
