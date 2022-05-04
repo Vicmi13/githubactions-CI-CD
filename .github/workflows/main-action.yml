@@ -19,12 +19,34 @@ jobs:
     # Define sobre que SO se va a compilar
     runs-on: ubuntu-latest
 
+    # PASOS PARA CONCRETAR EL CI/CD CON GITHUB ACTIONS
+    # 1 - Hacer login y definir que se va a utilizar heroku registry
+    # 2 - Despues de hacer el build de imagen agregar al registro de heroku
+    # 3 - Heroku tiene que jalar de registry la imagen para hacer el release
+
     steps:
       - run: echo "🐧 This job is now running on a ${{ runner.os }}  server hosted by GitHub!"
       - run: echo "🖥️ The workflow is now ready to test your code on the runner."
-      - name: Build Docker image  # nombre del proceso 
-        uses: actions/checkout@v3 # version de github actions que vamos a usar
-      - run: docker build .  --file Dockerfile --tag api-v1
+      - name: 1 Login to heroku registry   
+        # uses: actions/checkout@v3 # version de github actions que vamos a usar
+        env:
+          HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY}}
+      - run: heroku container:login
+
+      # - run: 
+      # - run:
+        # SE SUSTITUYE POR EL PIPE
+
+      - name: 2 Build and push image     
+      run: |
+          docker build . --tag api-v2 -f Docker/prod/Dockerfile
+          docker tag api-mongo-v2 registry.heroku.com/${{ secrets.HEROKU_APP_NAME}}/web
+          docker push registry.heroku.com/{{ secrets.HEROKU_APP_NAME}}/web
+
+      - name: 3 Release
+      - run: heroku container:release -a ${{ secrets.HEROKU_APP_NAME }} web
+
+      
      
   # Instrucciones para ejecutar los test
   test:
