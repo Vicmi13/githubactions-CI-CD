@@ -26,8 +26,8 @@ jobs:
 
     steps:
       - uses: actions/checkout@v3 # version de github actions que vamos a usar
-      - run: echo "🐧 This job is now running on a ${{ runner.os }}  server hosted by GitHub!"
-      - run: echo "🖥️ The workflow is now ready to test your code on the runner."
+      # - run: echo "🐧 This job is now running on a ${{ runner.os }}  server hosted by GitHub!"
+      # - run: echo "🖥️ The workflow is now ready to test your code on the runner."
       - name: 1 Login to heroku registry   
         env:
           HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY}}
