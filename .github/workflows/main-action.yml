@@ -47,7 +47,7 @@ jobs:
 
       - name: 3 Release
       - id: step3
-      - run: heroku container:release -a ${{ secrets.HEROKU_APP_NAME }} web
+        run: heroku container:release -a ${{ secrets.HEROKU_APP_NAME }} web
 
       
      
