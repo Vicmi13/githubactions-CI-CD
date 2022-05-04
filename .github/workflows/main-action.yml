@@ -29,11 +29,15 @@ jobs:
       - run: echo "🖥️ The workflow is now ready to test your code on the runner."
       - name: Login to heroku   
         uses: actions/checkout@v3 # version de github actions que vamos a usar
+
+        env: 
+          HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
+        run: heroku container:login 
+
+
         env:
           HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY}}
-      - run: |
-              echo $HEROKU_API_KEY 
-      - run: heroku container:login
+         run: heroku container:login
 
       # - run: 
       # - run:
