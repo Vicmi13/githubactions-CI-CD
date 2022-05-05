@@ -14,3 +14,4 @@ ENV NODE_ENV=dev
  
 # El comando para correr el proyecto con node
 CMD ["node", "index.js"]
+

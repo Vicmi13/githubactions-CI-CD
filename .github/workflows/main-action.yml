@@ -5,7 +5,7 @@ name: API mongo-express
 # accion que detonan los jobs CI
 on:
   push:
-    branches:
+    branches: # [main, dev]
       - main
       
     
@@ -37,24 +37,17 @@ jobs:
         uses: gonuit/heroku-docker-deploy@v1.3.3 # GitHub action name (leave it as it is).
 
         with:
-
-          # The email address associated with your Heroku account.
-          # If you don't want to use repository secrets (which is recommended) you can do:
-          # email: my.email@example.com
           email: vicm_13@hotmail.com
           
           heroku_api_key: ${{ secrets.HEROKU_API_KEY }}
           
-          # Name of the heroku application to which the build is to be sent.
           heroku_app_name: ${{ secrets.HEROKU_APP_NAME }}
 
           # (Optional, default: "./")
           # Dockerfile directory.
           # For example, if you have a Dockerfile in the root of your project, leave it as follows:
-          dockerfile_directory: ./
+          dockerfile_directory: ./Docker/prod
 
-          # (Optional, default: "Dockerfile")
-          # Dockerfile name.
           dockerfile_name: Dockerfile
 
           # (Optional, default: "")
